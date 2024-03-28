@@ -7,9 +7,4 @@ Scale Interpretation: Scores are represented on a color scale, from red (low int
 User-Friendly Interface: Simple and interactive interface for users to input text and receive instant scores.
 
 Packages used:
-Streamlit
-Simple Transformers
-Numpy
-Pandas
-Sklearn
-PyTorch
+Streamlit, Simple Transformers, Numpy, Pandas, Sklearn, PyTorch
