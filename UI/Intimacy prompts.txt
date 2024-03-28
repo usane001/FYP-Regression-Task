@@ -1,0 +1,5 @@
+Lowest Intimacy: "The weather is quite unpredictable today" = 1
+
+Mid intimacy: "Enjoying a warm cup of tea on a rainy day brings me a simple, yet profound joy." = 2.4
+
+High intimacy: "You and me, always forever We could stay alone together" = 4
