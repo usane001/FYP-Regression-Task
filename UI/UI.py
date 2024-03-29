@@ -1,3 +1,6 @@
+import streamlit as st
+from simpletransformers.classification import ClassificationModel
+import numpy as np
 
 st.title('Intimacy predictor')
 st.markdown("""This is a software tool created to read anything you input and predict the intimacy on a scale from 0 to 5. 
@@ -11,6 +14,8 @@ st.caption('0 being red, which also means no intimacy, and 5 being green, which 
 
 
 user_input = st.text_input("Input Data:", "Type here...")
+model = ClassificationModel('roberta', 'model_directory', use_cuda=False)
+
 def predict_intimacy(text):
     predictions, _ = model.predict([text])
     prediction_value = predictions[0] if predictions.ndim > 0 else predictions
@@ -23,5 +28,18 @@ def get_color(value):
     green = 255 * score_percentage
     return f"rgb({int(red)}, {int(green)}, 0)"
         color = get_color(prediction)
+
+col1, col2 = st.columns([1, 3])
+
+with col1:
+    enter_button = st.button('Enter')
+
+if enter_button:
+    with col2:
+        st.write('Processing...')
+        prediction = predict_intimacy(user_input)
+        color = get_color(prediction)
+        st.write('')
+        
     st.markdown(f'<div style="color: black; background-color: {color}; padding: 10px; border-radius: 5px; text-align: center;">Predicted intimacy level: {prediction}</div>', unsafe_allow_html=True)
 # to run this file please run the following code in the terminal "streamlit run path/to/file"
