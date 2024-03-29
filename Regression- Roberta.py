@@ -17,12 +17,13 @@ def main():
     df['original_index'] = range(len(df))
 
     df['label'] = df['label'].astype(float)  
+
     train_df, test_df = train_test_split(df, test_size=0.1, random_state=42)
-    train_df = train_df[['text', 'label']]
-    test_df = test_df[['text', 'label']]
+    train_df = train_df[['text', 'label', 'original_index']]
+    test_df = test_df[['text', 'label', 'original_index']]
     
-    train_df.columns = ['text', 'labels']
-    test_df.columns = ['text', 'labels']
+    train_df.columns = ['text', 'labels', 'original_index']
+    test_df.columns = ['text', 'labels', 'original_index']
 
     model_args = ClassificationArgs(
         num_train_epochs=3,
