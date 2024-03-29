@@ -45,17 +45,19 @@ def main():
     model.train_model(train_df, test_df=test_df)
 
  
-    predictions, raw_outputs = model.predict(test_df['text'].tolist())
-    test_df['predicted_label'] = predictions
-
- 
-    merged_df = df.merge(test_df[['original_index', 'predicted_label']], on='original_index', how='left')
+    predictions, raw_outputs = model.predict(df['text'].tolist())
+    prediction_df = pd.DataFrame({'original_index': df['original_index'], 'predicted_roberta': predictions})
 
 
-    updated_file_path = 'updated_with_new_predictions.csv' 
-    merged_df.drop(columns=['original_index']).to_csv(updated_file_path, index=False)
+    merged_df = df.merge(prediction_df, on='original_index', how='left')
+    
+    merged_df.to_csv('updated_with_new_predictions.csv', index=False)
 
-    print("Updated dataframe with predictions saved to:", updated_file_path)
+    missing_predictions = merged_df['predicted_roberta'].isnull().sum()
+    print(f"Missing predictions: {missing_predictions}")
+
+    
+   
 
 if __name__ == '__main__':
     main()
