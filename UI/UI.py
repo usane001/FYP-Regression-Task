@@ -15,12 +15,15 @@ st.caption('1 being red, which means the lowest level of intimacy, and 5 being g
 user_input = st.text_input("Input Data:", placeholder="Type here...")
 
 @st.cache_resource
-def load_model(): 
+def load_model():
+    model_path = './model_output'
     try:
-        model = ClassificationModel('roberta', './model_output', use_cuda=False, num_labels=1, args={'regression': True})
+        model = ClassificationModel('roberta', model_path, use_cuda=False, args={'regression': True})
         return model
     except Exception as e:
-        st.error('Failed to load the model.check the model path and files.')
+        error_message = f'Failed to load the model from {model_path}. Error: {e}'
+        st.error(error_message)
+        print(error_message)
         st.stop()
         
 model = load_model()
